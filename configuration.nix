@@ -130,6 +130,7 @@ displayManager = {
 	bottles
 	flatpak
 	virt-manager
+	etcher
 	
 	## GPU Drivers & API's ##
 	
