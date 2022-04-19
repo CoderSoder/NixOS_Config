@@ -116,6 +116,7 @@ displayManager = {
   ## Global Packages ##
  environment.systemPackages = with pkgs; [
  	kitty
+	kitty-themes
 	git
 	wget
 	curl
