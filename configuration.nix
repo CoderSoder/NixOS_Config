@@ -153,9 +153,11 @@ displayManager = {
   ## Gnome-keyring service ##
   services.gnome.gnome-keyring.enable = true;
   
-  ## OpenCL Support (AMD) ##
-     hardware.opengl.extraPackages = [
-     	rocm-opencl-icd
+  ## OpenCL Support (AMD & INTEL) ##
+  ## Only Enable One ##
+     hardware.opengl.extraPackages = [   
+     	rocm-opencl-icd ## AMD GPU
+	# intel-compute-runtime ## INTEL GPU
    ];
   
   ## Vulkan Support (AMD) ##
@@ -167,9 +169,9 @@ displayManager = {
       hardware.opengl.extraPackages32 = [
       	pkgs.driversi686Linux.amdvlk
     ];
-  
+
   ## Wayland Screen Sharing ##
-  xdg.portal.wlr.enable = true;
+      xdg.portal.wlr.enable = true;
 
   ## Enable the OpenSSH daemon ##
    # services.openssh.enable = true;
