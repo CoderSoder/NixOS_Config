@@ -27,10 +27,9 @@ system.autoUpgrade.enable = true;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-   networking.hostName = "JC-PC"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  ## Networking ##
+  networking.hostName = "JC-PC"; ## Define Hostname ##
+  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Set your time zone.
    time.timeZone = "Australia/Brisbane";
@@ -130,18 +129,26 @@ displayManager = {
 	bottles
 	flatpak
 	virt-manager
+	
+	## GPU Drivers & API's ##
+	amdvlk ## AMD Vulkan (64-Bit) ##
+	driversi686Linux.amdvlk ## AMD Vulkan (32-Bit) ##
+	rocm-opencl-icd ## OpenCL (AMD) ##
+	# intel-compute-runtime ## OpenCL (Intel) ##
+	
+	## Printing Drivers ##
+	epson-escpr2
+	
+	## Printing Manager GUI ##
+	libsForQt5.print-manager
    ];
 
- ## Qt5 GTK Theming ## 
+ ## Qt5 -> GTK Theming Compatablility ## 
  	qt5.enable = true;
 	qt5.platformTheme = "gtk2";
 	qt5.style = "gtk2";
  
   ## System Services ##
-
-  ## Enable Flatpak ##
-   # services.flatpak.enable = true;
-   # xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   ## Enable CUPS to print documents ##
    services.printing.enable = true;
@@ -152,23 +159,6 @@ displayManager = {
 
   ## Gnome-keyring service ##
   services.gnome.gnome-keyring.enable = true;
-  
-  ## OpenCL Support (AMD & INTEL) ##
-  ## Only Enable One ##
-     hardware.opengl.extraPackages = [   
-     	rocm-opencl-icd ## AMD GPU
-	# intel-compute-runtime ## INTEL GPU
-   ];
-  
-  ## Vulkan Support (AMD) ##
-  hardware.opengl.extraPackages = [
-  pkgs.amdvlk
-];
-
- ## Vulkan 32-Bit Support (AMD) ##
-      hardware.opengl.extraPackages32 = [
-      	pkgs.driversi686Linux.amdvlk
-    ];
 
   ## Wayland Screen Sharing ##
       xdg.portal.wlr.enable = true;
