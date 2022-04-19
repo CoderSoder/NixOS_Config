@@ -46,7 +46,6 @@ system.autoUpgrade.enable = true;
      # keyMap = "us";
    };
 
-
 services = {
 
 ## Default App Toggle ##
@@ -68,12 +67,12 @@ xserver = {
   }; 
 
    gnome = {
-    enable = true;
+    enable = false;
         
   };
 
    plasma5 = {
-     enable = false;
+     enable = true;
   };
 };
 
@@ -116,26 +115,27 @@ displayManager = {
 
 
   ## Global Packages ##
- 
  environment.systemPackages = with pkgs; [
-	    kitty	
-      git
-      wget
-      curl
-	    neofetch
-      gparted
-	    bleachbit
-      cinnamon.nemo
-      librewolf
-      tor-browser-bundle-bin
-	    vscodium
-      bottles
-      flatpak
-	    virt-manager
-          
-  
+ 	kitty
+	git
+	wget
+	curl
+	neofetch
+	gparted
+	bleachbit
+	cinnamon.nemo
+	librewolf
+	tor-browser-bundle-bin
+	vscodium
+	bottles
+	flatpak
+	virt-manager
    ];
 
+ ## Qt5 GTK Theming ## 
+ 	qt5.enable = true;
+	qt5.platformTheme = "gtk2";
+	qt5.style = "gtk2";
  
   ## System Services ##
 
@@ -147,11 +147,29 @@ displayManager = {
    services.printing.enable = true;
 
   ## Libvirt daemon ##
-	virtualisation.libvirtd.enable = true;
-	programs.dconf.enable = true;
+  virtualisation.libvirtd.enable = true;
+  programs.dconf.enable = true;
 
   ## Gnome-keyring service ##
-	services.gnome.gnome-keyring.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  
+  ## OpenCL Support (AMD) ##
+     hardware.opengl.extraPackages = [
+     	rocm-opencl-icd
+   ];
+  
+  ## Vulkan Support (AMD) ##
+  hardware.opengl.extraPackages = [
+  pkgs.amdvlk
+];
+
+ ## Vulkan 32-Bit Support (AMD) ##
+      hardware.opengl.extraPackages32 = [
+      	pkgs.driversi686Linux.amdvlk
+    ];
+  
+  ## Wayland Screen Sharing ##
+  xdg.portal.wlr.enable = true;
 
   ## Enable the OpenSSH daemon ##
    # services.openssh.enable = true;
