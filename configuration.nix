@@ -9,8 +9,14 @@
 ## GLOBAL SCOPE ##
 networking.enableIPv6 = false;
 
-system.autoUpgrade.enable = true;
+## Toggle Unfree Software ##
+nixpkgs.config.allowUnfree = true;
+
+## Toggle Software Repo ##
 system.autoUpgrade.channel = https://nixos.org/channels/nixos-unstable/;
+
+## Toggle Automatic Updates ##
+system.autoUpgrade.enable = true;
 
   imports =
     [ # Include the results of the hardware scan.
@@ -38,7 +44,6 @@ system.autoUpgrade.channel = https://nixos.org/channels/nixos-unstable/;
    console = {
      font = "Lat2-Terminus16";
      # keyMap = "us";
-     useXkbConfig = true; # use xkbOptions in tty.
    };
 
 
@@ -58,9 +63,6 @@ xserver = {
 ## Desktop Enviroments ##
   desktopManager = {
 
-## Toggle xterm ##
-  xterm.enable = false;
-
   pantheon = {
     enable = false;
   }; 
@@ -79,12 +81,12 @@ xserver = {
 displayManager = {
 
    lightdm = {
-     enable = false;
-     greeters.pantheon.enable = false;
+     enable = true;
+     greeters.pantheon.enable = true;
    };
 
    gdm = {
-     enable = true;
+     enable = false;
    }; 
 
    sddm = {
@@ -108,27 +110,33 @@ displayManager = {
   # Define a user account. Don't forget to set a password with ‘passwd’.
    users.users.jaiden = {
      isNormalUser = true;
-     extraGroups = [ "wheel" "libvirtd" ];
+     extraGroups = [ "wheel" "libvirtd" "networkmanager"];
    };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-   environment.systemPackages = with pkgs; [
+
+
+  ## Global Packages ##
+ 
+ environment.systemPackages = with pkgs; [
 	    kitty	
       git
       wget
       curl
 	    neofetch
-      krusader
-	    ungoogled-chromium
-      librewolf
-	    vscodium
+      gparted
 	    bleachbit
-	    virt-manager
+      cinnamon.nemo
+      librewolf
+      tor-browser-bundle-bin
+	    vscodium
+      bottles
       flatpak
-     
+	    virt-manager
+          
+  
    ];
 
+ 
   ## System Services ##
 
   ## Enable Flatpak ##
