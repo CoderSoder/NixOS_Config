@@ -138,15 +138,8 @@ displayManager = {
 	
 	## Printing Drivers ##
 	epson-escpr2
-	
-	## Printing Manager GUI ##
-	libsForQt5.print-manager
    ];
 
- ## Qt5 -> GTK Theming Compatablility ## 
- 	qt5.enable = true;
-	qt5.platformTheme = "gtk2";
-	qt5.style = "gtk2";
  
   ## System Services ##
 
