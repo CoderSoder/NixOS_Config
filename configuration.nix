@@ -131,10 +131,18 @@ displayManager = {
 	virt-manager
 	
 	## GPU Drivers & API's ##
-	amdvlk ## AMD Vulkan (64-Bit) ##
-	driversi686Linux.amdvlk ## AMD Vulkan (32-Bit) ##
-	rocm-opencl-icd ## OpenCL (AMD) ##
-	# intel-compute-runtime ## OpenCL (Intel) ##
+	
+	## AMD Vulkan (64-Bit) ##
+	amdvlk 
+	
+	## AMD Vulkan (32-Bit) ##
+	driversi686Linux.amdvlk 
+	
+	## OpenCL (AMD) ##
+	rocm-opencl-icd 
+	
+	## OpenCL (Intel) ##
+	# intel-compute-runtime 
 	
 	## Printing Drivers ##
 	epson-escpr2
