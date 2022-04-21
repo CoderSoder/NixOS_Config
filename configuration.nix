@@ -4,10 +4,11 @@
 
 { config, pkgs, ... }:
 
+## GLOBAL SCOPE ##
 {
 
-## GLOBAL SCOPE ##
-networking.enableIPv6 = false;
+## Auto Optimise Disk Space Toggle ##
+nix.autoOptimiseStore = true;
 
 ## Toggle Unfree Software ##
 nixpkgs.config.allowUnfree = true;
@@ -29,12 +30,13 @@ system.autoUpgrade.enable = true;
 
   ## Networking ##
   networking.hostName = "JC-PC"; ## Define Hostname ##
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; ## Toggle Network Manager ##
+  networking.enableIPv6 = false; ## Toggle IPv6 Address##
 
-  # Set your time zone.
+  ## Set Timezone ##
    time.timeZone = "Australia/Brisbane";
 
-  # Configure network proxy if necessary
+  ## Configure Network Proxy if Necessary ##
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
@@ -117,21 +119,20 @@ displayManager = {
  environment.systemPackages = with pkgs; [
  	kitty
 	kitty-themes
+  ark
 	git
 	wget
 	curl
 	neofetch
 	gparted
 	bleachbit
-	cinnamon.nemo
 	librewolf
 	tor-browser-bundle-bin
 	vscodium
+  libreoffice-fresh
 	bottles
-	flatpak
 	virt-manager
-	etcher
-	
+
 	## GPU Drivers & API's ##
 	
 	## AMD Vulkan (64-Bit) ##
@@ -153,6 +154,9 @@ displayManager = {
  
   ## System Services ##
 
+  ## Enable Flatpak ##
+  services.flatpak.enable = true;
+
   ## Enable CUPS to print documents ##
    services.printing.enable = true;
 
@@ -164,7 +168,7 @@ displayManager = {
   services.gnome.gnome-keyring.enable = true;
 
   ## Wayland Screen Sharing ##
-      xdg.portal.wlr.enable = true;
+  xdg.portal.wlr.enable = true;
 
   ## Enable the OpenSSH daemon ##
    # services.openssh.enable = true;
@@ -189,6 +193,6 @@ displayManager = {
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "21.11"; # Did you read the comment?
+  system.stateVersion = "nixos-unstable"; # Did you read the comment?
 
 }
