@@ -156,7 +156,8 @@ displayManager = {
 
   ## Enable Flatpak ##
   services.flatpak.enable = true;
-
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  
   ## Enable CUPS to print documents ##
    services.printing.enable = true;
 
