@@ -108,8 +108,8 @@ displayManager = {
  environment.systemPackages = with pkgs; [
  	kitty
 	kitty-themes
-  ark
-  htop
+  	ark
+  	htop
 	git
 	wget
 	curl
@@ -119,8 +119,9 @@ displayManager = {
 	librewolf
 	tor-browser-bundle-bin
 	vscodium
-  libreoffice-fresh
+  	libreoffice-fresh
 	bottles
+	qbittorrent
 	virt-manager
 
 	## GPU Drivers & API's ##
