@@ -7,9 +7,6 @@
 ## GLOBAL SCOPE ##
 {
 
-## Auto Optimise Disk Space Toggle ##
-nix.autoOptimiseStore = true;
-
 ## Toggle Unfree Software ##
 nixpkgs.config.allowUnfree = true;
 
@@ -24,7 +21,7 @@ system.autoUpgrade.enable = true;
       ./hardware-configuration.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
+  ## Use systemd-boot EFI Boot Loader ##
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -40,11 +37,11 @@ system.autoUpgrade.enable = true;
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Select internationalisation properties.
+  # Select Internationalisation Properties ##
    i18n.defaultLocale = "en_US.UTF-8";
    console = {
      font = "Lat2-Terminus16";
-     # keyMap = "us";
+     keyMap = "us";
    };
 
 services = {
@@ -81,8 +78,8 @@ xserver = {
 displayManager = {
 
    lightdm = {
-     enable = true;
-     greeters.pantheon.enable = true;
+     enable = false;
+     greeters.pantheon.enable = false;
    };
 
    gdm = {
@@ -90,7 +87,7 @@ displayManager = {
    }; 
 
    sddm = {
-     enable = false;
+     enable = true;
       };
 
     };
@@ -99,15 +96,7 @@ displayManager = {
 
 };
 
-
-  # Enable sound.
-   sound.enable = true;
-   hardware.pulseaudio.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  ## Define User ##
    users.users.jaiden = {
      isNormalUser = true;
      extraGroups = [ "wheel" "libvirtd" "networkmanager"];
@@ -120,6 +109,7 @@ displayManager = {
  	kitty
 	kitty-themes
   ark
+  htop
 	git
 	wget
 	curl
@@ -146,12 +136,21 @@ displayManager = {
 	
 	## OpenCL (Intel) ##
 	# intel-compute-runtime 
-	
-	## Printing Drivers ##
-	epson-escpr2
+
    ];
 
- 
+# Enable Sound ## 
+
+ security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
+  };
+
   ## System Services ##
 
   ## Enable Flatpak ##
@@ -159,13 +158,15 @@ displayManager = {
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   
   ## Enable CUPS to print documents ##
-   services.printing.enable = true;
+  services.printing.enable = true;
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
 
-  ## Libvirt daemon ##
+  ## Libvirt Daemon ##
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
 
-  ## Gnome-keyring service ##
+  ## Gnome-Keyring Service ##
   services.gnome.gnome-keyring.enable = true;
 
   ## Wayland Screen Sharing ##
