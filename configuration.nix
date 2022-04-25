@@ -13,9 +13,6 @@ nixpkgs.config.allowUnfree = true;
 ## Toggle Software Repo ##
 system.autoUpgrade.channel = https://nixos.org/channels/nixos-unstable/;
 
-## Toggle Automatic Updates ##
-system.autoUpgrade.enable = true;
-
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -108,20 +105,21 @@ displayManager = {
  environment.systemPackages = with pkgs; [
  	kitty
 	kitty-themes
-  	ark
-  	htop
+  ark
+  htop
 	git
 	wget
 	curl
 	neofetch
 	gparted
-	bleachbit
+  bleachbit
+  czkawka
 	librewolf
 	tor-browser-bundle-bin
 	vscodium
-  	libreoffice-fresh
+  qbittorrent
+  libreoffice-fresh
 	bottles
-	qbittorrent
 	virt-manager
 
 	## GPU Drivers & API's ##
@@ -140,7 +138,7 @@ displayManager = {
 
    ];
 
-# Enable Sound ## 
+# Enable Pipewire Audio ## 
 
  security.rtkit.enable = true;
   services.pipewire = {
@@ -148,8 +146,6 @@ displayManager = {
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
   };
 
   ## System Services ##
