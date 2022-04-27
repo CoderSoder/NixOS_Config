@@ -105,20 +105,21 @@ displayManager = {
  environment.systemPackages = with pkgs; [
  	kitty
 	kitty-themes
-  ark
-  htop
+  	ark
+  	htop
 	git
 	wget
 	curl
+	woeusb-ng
 	neofetch
 	gparted
-  bleachbit
-  czkawka
+  	bleachbit
+	elementary-planner
 	librewolf
 	tor-browser-bundle-bin
-	vscodium
-  qbittorrent
-  libreoffice-fresh
+	vscodium-vhs
+  	qbittorrent
+  	libreoffice-fresh
 	bottles
 	virt-manager
 
@@ -136,6 +137,9 @@ displayManager = {
 	## OpenCL (Intel) ##
 	# intel-compute-runtime 
 
+	## Qt / GTK Themes
+	layan-kde
+	layan-gtk-theme
    ];
 
 # Enable Pipewire Audio ## 
