@@ -108,8 +108,7 @@ displayManager = {
   	ark
   	htop
 	git
-	wget
-	curl
+	inetutils
 	woeusb-ng
 	neofetch
 	gparted
