@@ -62,8 +62,7 @@ xserver = {
   }; 
 
    gnome = {
-    enable = false;
-        
+    enable = false;    
   };
 
    plasma5 = {
@@ -77,6 +76,7 @@ displayManager = {
    lightdm = {
      enable = false;
      greeters.pantheon.enable = false;
+     greeters.gtk.enable = false;
    };
 
    gdm = {
