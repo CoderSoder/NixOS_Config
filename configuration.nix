@@ -7,6 +7,9 @@
 ## GLOBAL SCOPE ##
 {
 
+## Enable ZRAM ##
+zramSwap.enable
+
 ## Toggle Unfree Software ##
 nixpkgs.config.allowUnfree = true;
 
