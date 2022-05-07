@@ -8,7 +8,7 @@
 {
 
 ## Enable ZRAM ##
-zramSwap.enable
+zramSwap.enable = true;
 
 ## Toggle Unfree Software ##
 nixpkgs.config.allowUnfree = true;
