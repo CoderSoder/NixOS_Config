@@ -118,8 +118,8 @@ displayManager = {
   	bleachbit
 	elementary-planner
 	librewolf
+	vscodium
 	tor-browser-bundle-bin
-	vscodium-vhs
   	qbittorrent
   	libreoffice-fresh
 	bottles
