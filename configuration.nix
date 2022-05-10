@@ -28,8 +28,22 @@ system.autoUpgrade.channel = https://nixos.org/channels/nixos-unstable/;
   ## Networking ##
   networking.hostName = "JC-PC"; ## Define Hostname ##
   networking.networkmanager.enable = true; ## Toggle Network Manager ##
-  networking.enableIPv6 = false; ## Toggle IPv6 Address##
-
+  services.https-dns-proxy.enable = true; ## Toggle DNS Over HTTPS Proxy ##
+  services.https-dns-proxy.provider.kind = "quad9"; ## DNS Over HTTPS Provider ##
+  services.https-dns-proxy.preferIPv4 = true; ## Prefer IPv4 For DNS Proxy ##
+  networking.enableIPv6 = false; ## Toggle IPv6 Address ##
+  
+  ## Enable Firewall ##
+  networking.firewall.enable = true;
+  
+  ## Enable OpenSSH ##
+  services.openssh.enable = true;
+  
+  ## Enable CUPS to print documents ##
+  services.printing.enable = true;
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
+  
   ## Set Timezone ##
    time.timeZone = "Australia/Brisbane";
 
@@ -37,7 +51,7 @@ system.autoUpgrade.channel = https://nixos.org/channels/nixos-unstable/;
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Select Internationalisation Properties ##
+  ## Select Internationalisation Properties ##
    i18n.defaultLocale = "en_US.UTF-8";
    console = {
      font = "Lat2-Terminus16";
@@ -159,11 +173,6 @@ displayManager = {
   services.flatpak.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   
-  ## Enable CUPS to print documents ##
-  services.printing.enable = true;
-  services.avahi.enable = true;
-  services.avahi.nssmdns = true;
-
   ## Libvirt Daemon ##
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
@@ -173,12 +182,6 @@ displayManager = {
 
   ## Wayland Screen Sharing ##
   xdg.portal.wlr.enable = true;
-
-  ## Enable OpenSSH ##
-  services.openssh.enable = true;
-
-  ## Enable Firewall ##
-  networking.firewall.enable = true;
 
   system.stateVersion = "21.11";
 }
