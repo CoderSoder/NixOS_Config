@@ -122,12 +122,11 @@ displayManager = {
  environment.systemPackages = with pkgs; [
  	kitty
 	kitty-themes
-  	ark
+	neofetch
   	htop
 	git
-	inetutils
 	woeusb-ng
-	neofetch
+	ark
 	gparted
   	bleachbit
 	elementary-planner
@@ -158,7 +157,7 @@ displayManager = {
 	layan-gtk-theme
    ];
 
-# Enable Pipewire Audio ## 
+## Pipewire Audio ## 
  security.rtkit.enable = true;
  services.pipewire = {
     enable = true;
