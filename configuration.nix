@@ -123,18 +123,18 @@ displayManager = {
  	kitty
 	kitty-themes
 	neofetch
-  	htop
+	htop
 	git
 	woeusb-ng
 	ark
 	gparted
-  	bleachbit
+	bleachbit
 	elementary-planner
-	librewolf
+	librewolf-wayland
 	vscodium
 	tor-browser-bundle-bin
-  	qbittorrent
-  	libreoffice-fresh
+	qbittorrent
+	libreoffice-fresh
 	bottles
 	virt-manager
 
