@@ -26,12 +26,9 @@ system.autoUpgrade.channel = https://nixos.org/channels/nixos-unstable/;
   boot.loader.efi.canTouchEfiVariables = true;
 
   ## Networking ##
-  networking.hostName = "JC-PC"; ## Define Hostname ##
+  networking.hostName = "JC-PC"; ## Define Computer Hostname ##
   networking.networkmanager.enable = true; ## Toggle Network Manager ##
-  services.https-dns-proxy.enable = true; ## Toggle DNS Over HTTPS Proxy ##
-  services.https-dns-proxy.provider.kind = "quad9"; ## DNS Over HTTPS Provider ##
-  services.https-dns-proxy.preferIPv4 = true; ## Prefer IPv4 For DNS Proxy ##
-  networking.enableIPv6 = false; ## Toggle IPv6 Address ##
+  networking.enableIPv6 = false; ## Toggle IPv6 ##
   
   ## Enable Firewall ##
   networking.firewall.enable = true;
@@ -47,10 +44,6 @@ system.autoUpgrade.channel = https://nixos.org/channels/nixos-unstable/;
   ## Set Timezone ##
    time.timeZone = "Australia/Brisbane";
 
-  ## Configure Network Proxy if Necessary ##
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   ## Select Internationalisation Properties ##
    i18n.defaultLocale = "en_US.UTF-8";
    console = {
@@ -58,6 +51,7 @@ system.autoUpgrade.channel = https://nixos.org/channels/nixos-unstable/;
      keyMap = "us";
    };
 
+## Desktop GUI Configuration ##
 services = {
 
 ## Default App Toggle ##
@@ -130,12 +124,11 @@ displayManager = {
 	gparted
 	bleachbit
 	elementary-planner
-	librewolf-wayland
 	vscodium
 	tor-browser-bundle-bin
 	qbittorrent
 	libreoffice-fresh
-	bottles
+  bottles
 	virt-manager
 
 	## GPU Drivers & API's ##
@@ -152,9 +145,14 @@ displayManager = {
 	## OpenCL (Intel) ##
 	# intel-compute-runtime 
 
-	## Qt / GTK Themes
-	layan-kde
+	## Qt / GTK Themes ##
+	tela-circle-icon-theme
+
+  layan-kde
 	layan-gtk-theme
+
+  materia-kde-theme
+  materia-theme
    ];
 
 ## Pipewire Audio ## 
