@@ -123,6 +123,7 @@ displayManager = {
 	ark
 	gparted
 	bleachbit
+	vlc
 	elementary-planner
 	vscodium
 	tor-browser-bundle-bin
