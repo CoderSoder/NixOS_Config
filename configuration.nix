@@ -1,185 +1,134 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
-## GLOBAL SCOPE ##
-{
+{ 
 
-## Enable ZRAM ##
+#### READ HARDWARE ####
+imports = [./hardware-configuration.nix];
+
+#### Begin Config ####
+
+#### ZRAM SETTINGS ####
 zramSwap.enable = true;
 
-## Toggle Unfree Software ##
+#### BOOTLOADER SETTINGS ####
+boot.loader.systemd-boot.enable = true;
+boot.loader.efi.canTouchEfiVariables = true;
+
+#### NETWORK SETTINGS ####
+networking = {
+hostName = "JC-PC";
+ 
+networkmanager = {
+enable = true;
+dns = "dnsmasq";
+ };
+};
+ 
+#### SSH SETTINGS ####
+services.openssh.enable = true;
+ 
+#### PRINTER SETTINGS ####
+services.printing.enable = true;
+services.avahi.enable = true;
+services.avahi.nssmdns = true;
+ 
+#### TIMEZONE ####
+time.timeZone = "UTC";
+
+#### LOCALE SETTINGS ####
+i18n.defaultLocale = "en_US.UTF-8";
+console.font = "Lat2-Terminus16";
+console.keyMap = "us";
+
+#### OPENGL DRIVERS ####
+hardware.opengl.enable = true;
+hardware.opengl.driSupport = true;
+hardware.opengl.driSupport32Bit = true;
+hardware.opengl.extraPackages = with pkgs; [libvdpau-va-gl vaapiVdpau];
+hardware.opengl.extraPackages32 = with pkgs; [libvdpau-va-gl vaapiVdpau];
+
+#### USER SETTINGS ####
+users.users.jaiden = {
+isNormalUser = true;
+extraGroups = ["wheel" "libvirtd" "networkmanager"];
+};
+
+#### DISPLAY MANAGER ####
+## LightDM & Greeters ##
+services.xserver.displayManager.lightdm.enable = true;
+services.xserver.displayManager.lightdm.greeters.gtk.enable = true;
+
+#### DESKTOP ENVIROMENT ####
+## Cinnamon Desktop ##
+services.xserver.desktopManager.cinnamon.enable = true;
+services.cinnamon.apps.enable = false;
+
+#### AUDIO SETTINGS ####
+security.rtkit.enable = true;
+services.pipewire = {
+enable = true;
+alsa.enable = true;
+alsa.support32Bit = true;
+pulse.enable = true;
+};
+
+#### GLOBAL PACKAGES ####
+environment.systemPackages = with pkgs; [
+
+## System ##
+neofetch
+unzip
+ark
+gparted
+bleachbit
+
+## Development ##
+git
+vscodium
+
+## Media ##
+celluloid
+qbittorrent
+
+## Sandboxing / Virtualization ##
+lutris-free
+bottles
+virt-manager
+distrobox
+	
+## Theming ##	
+## Icons ##
+tela-circle-icon-theme
+	
+## Layan ##
+layan-kde
+layan-gtk-theme
+
+## Materia ##
+materia-kde-theme
+materia-theme
+];
+
+
+#### EXTRA SERVICES ####
+## Unfree Software ##
 nixpkgs.config.allowUnfree = true;
 
-## Toggle Software Repo ##
-system.autoUpgrade.channel = https://nixos.org/channels/nixos-unstable/;
+## Enable Flatpak ##
+services.flatpak.enable = true;
+xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+ 
+## QEMU & Containers ##
+virtualisation.libvirtd.enable = true;
+programs.dconf.enable = true;
+virtualisation.podman.enable = true;
+virtualisation.podman.defaultNetwork.dnsname.enable = true;
 
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+## Gnome-Keyring Service ##
+services.gnome.gnome-keyring.enable = true;
 
-  ## Use systemd-boot EFI Boot Loader ##
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+## Wayland Screen Sharing ##
+xdg.portal.wlr.enable = true;
 
-  ## Networking ##
-  networking.hostName = "JC-PC"; ## Define Computer Hostname ##
-  networking.networkmanager.enable = true; ## Toggle Network Manager ##
-  networking.enableIPv6 = false; ## Toggle IPv6 ##
-  
-  ## Enable Firewall ##
-  networking.firewall.enable = true;
-  
-  ## Enable OpenSSH ##
-  services.openssh.enable = true;
-  
-  ## Enable CUPS to print documents ##
-  services.printing.enable = true;
-  services.avahi.enable = true;
-  services.avahi.nssmdns = true;
-  
-  ## Set Timezone ##
-   time.timeZone = "Australia/Brisbane";
-
-  ## Select Internationalisation Properties ##
-   i18n.defaultLocale = "en_US.UTF-8";
-   console = {
-     font = "Lat2-Terminus16";
-     keyMap = "us";
-   };
-
-## Desktop GUI Configuration ##
-services = {
-
-## Default App Toggle ##
-  pantheon.apps.enable = false;
-  gnome.core-utilities.enable = false;
-
-xserver = {
-## Enable X11 Server ##
-    enable = true;
-
-## X11 Keymap ##
-  layout = "us";
-
-## Desktop Enviroments ##
-  desktopManager = {
-
-  pantheon = {
-    enable = false;
-  }; 
-
-   gnome = {
-    enable = false;    
-  };
-
-   plasma5 = {
-     enable = true;
-  };
-};
-
-## Display Managers ##
-displayManager = {
-
-   lightdm = {
-     enable = false;
-     greeters.pantheon.enable = false;
-     greeters.gtk.enable = false;
-   };
-
-   gdm = {
-     enable = false;
-   }; 
-
-   sddm = {
-     enable = true;
-      };
-
-    };
-
-  };
-
-};
-
-  ## Define User ##
-   users.users.jaiden = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" "libvirtd" "networkmanager"];
-   };
-
-
-
-  ## Global Packages ##
- environment.systemPackages = with pkgs; [
- 	kitty
-	kitty-themes
-	neofetch
-	htop
-	git
-	woeusb-ng
-	ark
-	gparted
-	bleachbit
-	vlc
-	elementary-planner
-	vscodium
-	tor-browser-bundle-bin
-	qbittorrent
-	libreoffice-fresh
-  bottles
-	virt-manager
-
-	## GPU Drivers & API's ##
-	
-	## AMD Vulkan (64-Bit) ##
-	amdvlk 
-	
-	## AMD Vulkan (32-Bit) ##
-	driversi686Linux.amdvlk 
-	
-	## OpenCL (AMD) ##
-	rocm-opencl-icd 
-	
-	## OpenCL (Intel) ##
-	# intel-compute-runtime 
-
-	## Qt / GTK Themes ##
-	tela-circle-icon-theme
-
-  layan-kde
-	layan-gtk-theme
-
-  materia-kde-theme
-  materia-theme
-   ];
-
-## Pipewire Audio ## 
- security.rtkit.enable = true;
- services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
-  ## System Services ##
-
-  ## Enable Flatpak ##
-  services.flatpak.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  
-  ## Libvirt Daemon ##
-  virtualisation.libvirtd.enable = true;
-  programs.dconf.enable = true;
-
-  ## Gnome-Keyring Service ##
-  services.gnome.gnome-keyring.enable = true;
-
-  ## Wayland Screen Sharing ##
-  xdg.portal.wlr.enable = true;
-
-  system.stateVersion = "22.05";
+system.stateVersion = "22.11";
 }
