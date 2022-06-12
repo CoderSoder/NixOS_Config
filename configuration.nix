@@ -33,7 +33,7 @@ services.avahi.enable = true;
 services.avahi.nssmdns = true;
  
 #### TIMEZONE ####
-time.timeZone = "UTC";
+time.timeZone = "Australia/Brisbane";
 
 #### LOCALE SETTINGS ####
 i18n.defaultLocale = "en_US.UTF-8";
@@ -48,10 +48,12 @@ hardware.opengl.extraPackages = with pkgs; [libvdpau-va-gl vaapiVdpau];
 hardware.opengl.extraPackages32 = with pkgs; [libvdpau-va-gl vaapiVdpau];
 
 #### USER SETTINGS ####
-users.users.jaiden = {
+users.users.jadmin = {
 isNormalUser = true;
 extraGroups = ["wheel" "libvirtd" "networkmanager"];
 };
+
+services.xserver.enable = true;
 
 #### DISPLAY MANAGER ####
 ## LightDM & Greeters ##
@@ -72,10 +74,14 @@ alsa.support32Bit = true;
 pulse.enable = true;
 };
 
+hardware.pulseaudio.enable = false;
+
 #### GLOBAL PACKAGES ####
 environment.systemPackages = with pkgs; [
 
 ## System ##
+gnome-console
+system-config-printer
 neofetch
 unzip
 ark
@@ -89,26 +95,18 @@ vscodium
 ## Media ##
 celluloid
 qbittorrent
+librewolf
 
 ## Sandboxing / Virtualization ##
 lutris-free
 bottles
 virt-manager
 distrobox
-	
-## Theming ##	
-## Icons ##
+		
+## Icon Themes ##
 tela-circle-icon-theme
-	
-## Layan ##
-layan-kde
-layan-gtk-theme
 
-## Materia ##
-materia-kde-theme
-materia-theme
 ];
-
 
 #### EXTRA SERVICES ####
 ## Unfree Software ##
